@@ -11,6 +11,7 @@ import Upload from './pages/Upload';
 import Settings from './pages/Settings';
 import Pricing from './pages/Pricing';
 import About from './pages/About';
+import ChatAssistant from './components/ChatAssistant';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/about" element={<About />} />
             </Routes>
+            <ChatAssistant />
           </div>
         </Router>
       </AuthProvider>

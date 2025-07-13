@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { 
@@ -17,6 +17,7 @@ const Navigation: React.FC = () => {
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -29,6 +30,11 @@ const Navigation: React.FC = () => {
     { name: 'Pricing', href: '/pricing' },
     { name: 'About', href: '/about' },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
@@ -87,7 +93,7 @@ const Navigation: React.FC = () => {
                   </span>
                 </div>
                 <button
-                  onClick={logout}
+                  onClick={handleLogout}
                   className="p-2 rounded-md text-gray-500 hover:text-red-500 transition-colors"
                 >
                   <ArrowRightOnRectangleIcon className="h-5 w-5" />

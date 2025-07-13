@@ -88,6 +88,72 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section className={`relative overflow-hidden ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 dark:from-gray-800 dark:via-blue-900/20 dark:to-purple-900/20"></div>
+        
+        {/* Animated Mathematical Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Mathematical formulas and symbols */}
+          <div className="absolute top-20 left-10 text-blue-200 dark:text-blue-800 text-2xl font-mono animate-float-slow opacity-30">
+            ∫f(x)dx
+          </div>
+          <div className="absolute top-32 right-20 text-purple-200 dark:text-purple-800 text-lg font-mono animate-float-medium opacity-25">
+            x² + y² = r²
+          </div>
+          <div className="absolute top-48 left-1/4 text-green-200 dark:text-green-800 text-xl font-mono animate-float-fast opacity-20">
+            ∑(n=1 to ∞)
+          </div>
+          <div className="absolute top-64 right-1/3 text-orange-200 dark:text-orange-800 text-lg font-mono animate-float-slow opacity-30">
+            lim(x→∞)
+          </div>
+          <div className="absolute top-80 left-16 text-pink-200 dark:text-pink-800 text-2xl font-mono animate-float-medium opacity-25">
+            π = 3.14159...
+          </div>
+          <div className="absolute top-96 right-12 text-indigo-200 dark:text-indigo-800 text-lg font-mono animate-float-fast opacity-20">
+            e^(iπ) + 1 = 0
+          </div>
+          <div className="absolute top-40 left-1/2 text-cyan-200 dark:text-cyan-800 text-xl font-mono animate-float-slow opacity-30">
+            √(a² + b²)
+          </div>
+          <div className="absolute top-72 left-1/3 text-yellow-200 dark:text-yellow-800 text-lg font-mono animate-float-medium opacity-25">
+            sin²θ + cos²θ = 1
+          </div>
+          <div className="absolute top-24 right-1/4 text-red-200 dark:text-red-800 text-xl font-mono animate-float-fast opacity-20">
+            ∂f/∂x
+          </div>
+          <div className="absolute top-56 right-16 text-teal-200 dark:text-teal-800 text-lg font-mono animate-float-slow opacity-30">
+            log₂(x)
+          </div>
+          
+          {/* Geometric shapes */}
+          <div className="absolute top-16 left-1/3 w-8 h-8 border-2 border-blue-300 dark:border-blue-700 rotate-45 animate-spin-slow opacity-20"></div>
+          <div className="absolute top-44 right-1/4 w-6 h-6 bg-purple-300 dark:bg-purple-700 rounded-full animate-pulse opacity-25"></div>
+          <div className="absolute top-68 left-20 w-10 h-10 border-2 border-green-300 dark:border-green-700 transform rotate-12 animate-bounce-subtle opacity-20"></div>
+          <div className="absolute top-84 right-20 w-4 h-12 bg-orange-300 dark:bg-orange-700 transform rotate-45 animate-float-medium opacity-25"></div>
+          <div className="absolute top-28 left-2/3 w-6 h-6 border-2 border-pink-300 dark:border-pink-700 rounded-full animate-spin-slow opacity-20"></div>
+          <div className="absolute top-52 right-1/3 w-8 h-8 bg-indigo-300 dark:bg-indigo-700 transform rotate-45 animate-pulse opacity-25"></div>
+          
+          {/* Mathematical symbols */}
+          <div className="absolute top-36 left-12 text-4xl text-cyan-200 dark:text-cyan-800 animate-float-fast opacity-20">
+            ∞
+          </div>
+          <div className="absolute top-60 right-24 text-3xl text-yellow-200 dark:text-yellow-800 animate-float-slow opacity-25">
+            Σ
+          </div>
+          <div className="absolute top-76 left-1/4 text-2xl text-red-200 dark:text-red-800 animate-float-medium opacity-20">
+            ∆
+          </div>
+          <div className="absolute top-88 right-1/4 text-3xl text-teal-200 dark:text-teal-800 animate-float-fast opacity-25">
+            ∇
+          </div>
+          <div className="absolute top-20 left-3/4 text-2xl text-purple-200 dark:text-purple-800 animate-float-slow opacity-20">
+            ∂
+          </div>
+          
+          {/* Additional geometric elements */}
+          <div className="absolute top-32 left-1/2 w-12 h-1 bg-blue-300 dark:bg-blue-700 transform rotate-30 animate-float-medium opacity-20"></div>
+          <div className="absolute top-48 right-12 w-1 h-12 bg-green-300 dark:bg-green-700 transform rotate-60 animate-float-slow opacity-25"></div>
+          <div className="absolute top-64 left-8 w-6 h-6 border-l-2 border-b-2 border-orange-300 dark:border-orange-700 transform rotate-45 animate-bounce-subtle opacity-20"></div>
+        </div>
+        
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
           <div className="text-center">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 text-sm font-medium mb-8">

@@ -46,7 +46,7 @@ const Navigation: React.FC = () => {
             <Link to="/" className="flex items-center space-x-2">
               <SparklesIcon className="h-8 w-8 text-blue-600" />
               <span className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                EvalAI
+                ExamEval
               </span>
             </Link>
           </div>

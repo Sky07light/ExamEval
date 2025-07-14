@@ -294,4 +294,19 @@ const Home: React.FC = () => {
                 <div className={`text-sm font-semibold ${isDark ? 'text-blue-400' : 'text-blue-600'} mb-2`}>
                   {item.step}
                 </div>
-                <h3 className={`
+                <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'} mb-2`}>
+                  {item.title}
+                </h3>
+                <p className={`${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Home;

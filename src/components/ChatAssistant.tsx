@@ -20,7 +20,7 @@ const ChatAssistant: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hi! I'm EvalAI Assistant. How can I help you today? You can ask me about our features, pricing, or how to get started!",
+      text: "Hi! I'm ExamEval Assistant. How can I help you today? You can ask me about our features, pricing, or how to get started!",
       isUser: false,
       timestamp: new Date()
     }
@@ -28,7 +28,7 @@ const ChatAssistant: React.FC = () => {
   const [inputText, setInputText] = useState('');
 
   const predefinedResponses = {
-    'how does it work': "EvalAI uses advanced AI to evaluate subjective exam answers. Simply upload your question papers and model answers, then let our AI grade student responses with detailed feedback!",
+    'how does it work': "ExamEval uses advanced AI to evaluate subjective exam answers. Simply upload your question papers and model answers, then let our AI grade student responses with detailed feedback!",
     'pricing': "We offer three plans: Free (10 evaluations/month), Professional ($29/month for 500 evaluations), and Enterprise ($99/month for unlimited evaluations). Check our pricing page for full details!",
     'features': "Our key features include AI-powered grading, detailed feedback, analytics dashboard, bulk upload, custom rubrics, and support for both handwritten and typed answers.",
     'getting started': "Getting started is easy! Sign up for a free account, choose your role (teacher or student), upload your first exam materials, and let our AI do the rest!",
@@ -36,7 +36,7 @@ const ChatAssistant: React.FC = () => {
     'accuracy': "Our AI achieves high accuracy by using advanced language models and can be fine-tuned with your specific rubrics and grading criteria.",
     'formats': "We support PDF, DOC, DOCX, JPG, PNG, and JPEG files. Our OCR technology can read handwritten answers too!",
     'security': "Your data is secure with enterprise-grade encryption, regular backups, and SOC 2 compliance. We never share your exam content.",
-    'default': "That's a great question! While I'm still learning, I'd recommend checking our documentation or contacting our support team for detailed assistance. Is there anything specific about EvalAI's features or pricing I can help with?"
+    'default': "That's a great question! While I'm still learning, I'd recommend checking our documentation or contacting our support team for detailed assistance. Is there anything specific about ExamEval's features or pricing I can help with?"
   };
 
   const getResponse = (userMessage: string): string => {
@@ -109,7 +109,7 @@ const ChatAssistant: React.FC = () => {
               </div>
               <div>
                 <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                  EvalAI Assistant
+                  ExamEval Assistant
                 </h3>
                 <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                   Online now

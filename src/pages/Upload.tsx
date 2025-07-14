@@ -95,7 +95,7 @@ const Upload: React.FC = () => {
             Upload Exam Materials
           </h1>
           <p className={`mt-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            Upload question papers, model answers, or student responses for AI evaluation.
+            Upload question papers, model answers, or student responses for ExamEval's AI evaluation.
           </p>
         </div>
 

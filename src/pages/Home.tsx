@@ -273,6 +273,161 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className={`text-3xl md:text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'} mb-4`}>
+              What Our Users Say
+            </h2>
+            <p className={`text-xl ${isDark ? 'text-gray-300' : 'text-gray-600'} max-w-3xl mx-auto`}>
+              Trusted by thousands of educators worldwide
+            </p>
+          </div>
+
+          {/* Infinite Scrolling Reviews */}
+          <div className="relative overflow-hidden">
+            <div className="flex animate-scroll-infinite space-x-8">
+              {/* First set of reviews */}
+              {[
+                {
+                  name: 'Dr. Sarah Mitchell',
+                  role: 'Professor of Literature',
+                  avatar: 'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'ExamEval has revolutionized how I grade essays. The detailed feedback is incredibly helpful for students.',
+                  rating: 5,
+                },
+                {
+                  name: 'Mark Johnson',
+                  role: 'High School Teacher',
+                  avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'I save 15 hours per week on grading. The consistency and quality of AI evaluation is impressive.',
+                  rating: 5,
+                },
+                {
+                  name: 'Emily Chen',
+                  role: 'University Lecturer',
+                  avatar: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'Students love the immediate feedback. It helps them understand their mistakes and improve faster.',
+                  rating: 5,
+                },
+                {
+                  name: 'Dr. Michael Rodriguez',
+                  role: 'Mathematics Professor',
+                  avatar: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'The AI understands mathematical concepts remarkably well. It has transformed my assessment process.',
+                  rating: 5,
+                },
+                {
+                  name: 'Lisa Thompson',
+                  role: 'Science Department Head',
+                  avatar: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'ExamEval provides consistent grading across all our teachers. The analytics help us improve our curriculum.',
+                  rating: 5,
+                },
+              ].map((review, index) => (
+                <div
+                  key={index}
+                  className={`flex-shrink-0 w-80 p-6 rounded-xl ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-lg`}
+                >
+                  <div className="flex items-center mb-4">
+                    <img
+                      src={review.avatar}
+                      alt={review.name}
+                      className="w-12 h-12 rounded-full object-cover mr-4"
+                    />
+                    <div>
+                      <h4 className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                        {review.name}
+                      </h4>
+                      <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                        {review.role}
+                      </p>
+                    </div>
+                  </div>
+                  <p className={`${isDark ? 'text-gray-300' : 'text-gray-600'} mb-4`}>
+                    "{review.content}"
+                  </p>
+                  <div className="flex">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <StarIcon key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                </div>
+              ))}
+              
+              {/* Duplicate set for infinite scroll */}
+              {[
+                {
+                  name: 'Dr. Sarah Mitchell',
+                  role: 'Professor of Literature',
+                  avatar: 'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'ExamEval has revolutionized how I grade essays. The detailed feedback is incredibly helpful for students.',
+                  rating: 5,
+                },
+                {
+                  name: 'Mark Johnson',
+                  role: 'High School Teacher',
+                  avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'I save 15 hours per week on grading. The consistency and quality of AI evaluation is impressive.',
+                  rating: 5,
+                },
+                {
+                  name: 'Emily Chen',
+                  role: 'University Lecturer',
+                  avatar: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'Students love the immediate feedback. It helps them understand their mistakes and improve faster.',
+                  rating: 5,
+                },
+                {
+                  name: 'Dr. Michael Rodriguez',
+                  role: 'Mathematics Professor',
+                  avatar: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'The AI understands mathematical concepts remarkably well. It has transformed my assessment process.',
+                  rating: 5,
+                },
+                {
+                  name: 'Lisa Thompson',
+                  role: 'Science Department Head',
+                  avatar: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                  content: 'ExamEval provides consistent grading across all our teachers. The analytics help us improve our curriculum.',
+                  rating: 5,
+                },
+              ].map((review, index) => (
+                <div
+                  key={`duplicate-${index}`}
+                  className={`flex-shrink-0 w-80 p-6 rounded-xl ${isDark ? 'bg-gray-800' : 'bg-white'} shadow-lg`}
+                >
+                  <div className="flex items-center mb-4">
+                    <img
+                      src={review.avatar}
+                      alt={review.name}
+                      className="w-12 h-12 rounded-full object-cover mr-4"
+                    />
+                    <div>
+                      <h4 className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                        {review.name}
+                      </h4>
+                      <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                        {review.role}
+                      </p>
+                    </div>
+                  </div>
+                  <p className={`${isDark ? 'text-gray-300' : 'text-gray-600'} mb-4`}>
+                    "{review.content}"
+                  </p>
+                  <div className="flex">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <StarIcon key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className={`text-3xl md:text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'} mb-4`}>
               How It Works
             </h2>
             <p className={`text-xl ${isDark ? 'text-gray-300' : 'text-gray-600'} max-w-3xl mx-auto`}>

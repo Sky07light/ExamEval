@@ -18,6 +18,7 @@ export default {
         'float-medium': 'float 4s ease-in-out infinite',
         'float-fast': 'float 3s ease-in-out infinite',
         'spin-slow': 'spin 8s linear infinite',
+        'scroll-infinite': 'scrollInfinite 30s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -40,6 +41,10 @@ export default {
           '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
           '33%': { transform: 'translateY(-10px) rotate(2deg)' },
           '66%': { transform: 'translateY(5px) rotate(-1deg)' },
+        },
+        scrollInfinite: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },

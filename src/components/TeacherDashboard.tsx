@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { useAuth } from '../contexts/AuthContext';
 import {
@@ -16,6 +17,7 @@ import {
 const TeacherDashboard: React.FC = () => {
   const { isDark } = useTheme();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [selectedSection, setSelectedSection] = useState('10A');
   const [showAddSectionModal, setShowAddSectionModal] = useState(false);
   const [newSection, setNewSection] = useState({ name: '', studentCount: '' });
@@ -173,10 +175,6 @@ const TeacherDashboard: React.FC = () => {
               <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
                 Sections Overview
               </h2>
-              <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                <PlusIcon className="h-4 w-4 mr-2" />
-                Add Section
-              </button>
               <button 
                 onClick={() => setShowAddSectionModal(true)}
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -196,7 +194,7 @@ const TeacherDashboard: React.FC = () => {
                         ? 'border-gray-700 bg-gray-900 hover:border-gray-600'
                         : 'border-gray-200 bg-gray-50 hover:border-gray-300'
                   }`}
-                  onClick={() => setSelectedSection(section.name)}
+                  onClick={() => navigate(`/section/${section.name}`)}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -216,11 +214,9 @@ const TeacherDashboard: React.FC = () => {
                   </div>
                   <div className="mt-2">
                     <span className={`text-xs px-2 py-1 rounded-full ${
-                      selectedSection === section.name 
-                        ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400'
-                        : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
+                      'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
                     }`}>
-                      {selectedSection === section.name ? 'Selected' : 'Click to view'}
+                      Click to view details
                     </span>
                   </div>
                 </div>
@@ -269,70 +265,6 @@ const TeacherDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Students in Selected Section */}
-        <div className={`mt-8 ${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-6`}>
-          <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'} mb-6`}>
-            Students in Class {selectedSection}
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className={`${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
-                  <th className={`px-6 py-3 text-left text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Student Name
-                  </th>
-                  <th className={`px-6 py-3 text-left text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Average Score
-                  </th>
-                  <th className={`px-6 py-3 text-left text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Last Exam
-                  </th>
-                  <th className={`px-6 py-3 text-left text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Grade
-                  </th>
-                  <th className={`px-6 py-3 text-left text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Trend
-                  </th>
-                  <th className={`px-6 py-3 text-left text-xs font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className={`${isDark ? 'bg-gray-800' : 'bg-white'} divide-y ${isDark ? 'divide-gray-700' : 'divide-gray-200'}`}>
-                {sectionStudents.map((student, index) => (
-                  <tr key={index}>
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                      {student.name}
-                    </td>
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                      {student.avgScore}%
-                    </td>
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                      {student.lastExam}%
-                    </td>
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${getGradeColor(student.grade)}`}>
-                      {student.grade}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        student.trend === 'up' 
-                          ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-                          : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
-                      }`}>
-                        {student.trend === 'up' ? '↗ Improving' : '↘ Declining'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <button className="text-blue-600 hover:text-blue-700">
-                        View Profile
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
 
         {/* Add Section Modal */}
         {showAddSectionModal && (

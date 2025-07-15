@@ -6,18 +6,17 @@ import {
   ChartBarIcon,
   UserGroupIcon,
   DocumentTextIcon,
-  AcademicCapIcon,
   ClockIcon,
-  TrophyIcon,
   PlusIcon,
   EyeIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline';
 
-const TeacherDashboard: React.FC = () => {
+const TeacherDashboard = () => {
   const { isDark } = useTheme();
   const { user } = useAuth();
   const navigate = useNavigate();
+
   const [selectedSection, setSelectedSection] = useState('10A');
   const [showAddSectionModal, setShowAddSectionModal] = useState(false);
   const [newSection, setNewSection] = useState({ name: '', studentCount: '' });
@@ -45,70 +44,30 @@ const TeacherDashboard: React.FC = () => {
     { subject: 'Chemistry', section: '11B', evaluated: 29, pending: 0, date: '2025-01-12' },
   ];
 
-  const topStudents = [
-    { name: 'Emma Wilson', section: '12A', avgScore: 94.5, improvement: '+2.3%' },
-    { name: 'James Chen', section: '11A', avgScore: 92.1, improvement: '+1.8%' },
-    { name: 'Sofia Rodriguez', section: '10A', avgScore: 89.7, improvement: '+3.2%' },
-    { name: 'Michael Johnson', section: '12B', avgScore: 88.9, improvement: '+0.9%' },
-    { name: 'Aisha Patel', section: '11B', avgScore: 87.4, improvement: '+2.1%' },
-  ];
-
-  // Sample student data for different sections
   const allStudents = {
     '10A': [
       { name: 'Alex Thompson', avgScore: 85.2, lastExam: 88, trend: 'up', grade: 'A' },
-      { name: 'Sarah Miller', avgScore: 82.7, lastExam: 79, trend: 'down', grade: 'A-' },
-      { name: 'David Chen', avgScore: 91.3, lastExam: 93, trend: 'up', grade: 'A+' },
-      { name: 'Lisa Brown', avgScore: 76.8, lastExam: 81, trend: 'up', grade: 'B+' },
-      { name: 'Ryan Kumar', avgScore: 88.5, lastExam: 87, trend: 'down', grade: 'A' },
-      { name: 'Emma Davis', avgScore: 79.2, lastExam: 84, trend: 'up', grade: 'B+' },
     ],
-    '10B': [
-      { name: 'Michael Johnson', avgScore: 78.5, lastExam: 82, trend: 'up', grade: 'B+' },
-      { name: 'Jessica Lee', avgScore: 84.2, lastExam: 86, trend: 'up', grade: 'A-' },
-      { name: 'Daniel Wilson', avgScore: 72.8, lastExam: 75, trend: 'up', grade: 'B' },
-      { name: 'Sophie Chen', avgScore: 89.1, lastExam: 91, trend: 'up', grade: 'A' },
-      { name: 'James Rodriguez', avgScore: 81.7, lastExam: 78, trend: 'down', grade: 'A-' },
-    ],
-    '11A': [
-      { name: 'Emily Watson', avgScore: 92.4, lastExam: 94, trend: 'up', grade: 'A+' },
-      { name: 'Noah Martinez', avgScore: 87.6, lastExam: 89, trend: 'up', grade: 'A' },
-      { name: 'Olivia Taylor', avgScore: 83.9, lastExam: 81, trend: 'down', grade: 'A-' },
-      { name: 'Ethan Anderson', avgScore: 79.3, lastExam: 83, trend: 'up', grade: 'B+' },
-    ],
-    '11B': [
-      { name: 'Ava Thompson', avgScore: 85.7, lastExam: 88, trend: 'up', grade: 'A' },
-      { name: 'Liam Garcia', avgScore: 74.2, lastExam: 72, trend: 'down', grade: 'B' },
-      { name: 'Mia Robinson', avgScore: 90.8, lastExam: 93, trend: 'up', grade: 'A+' },
-      { name: 'Lucas White', avgScore: 77.5, lastExam: 80, trend: 'up', grade: 'B+' },
-    ],
-    '12A': [
-      { name: 'Isabella Clark', avgScore: 94.2, lastExam: 96, trend: 'up', grade: 'A+' },
-      { name: 'Mason Lewis', avgScore: 89.7, lastExam: 91, trend: 'up', grade: 'A' },
-      { name: 'Charlotte Hall', avgScore: 86.3, lastExam: 84, trend: 'down', grade: 'A' },
-      { name: 'William Allen', avgScore: 82.1, lastExam: 85, trend: 'up', grade: 'A-' },
-    ],
-    '12B': [
-      { name: 'Amelia Young', avgScore: 91.5, lastExam: 93, trend: 'up', grade: 'A+' },
-      { name: 'Benjamin King', avgScore: 84.8, lastExam: 87, trend: 'up', grade: 'A-' },
-      { name: 'Harper Wright', avgScore: 78.9, lastExam: 76, trend: 'down', grade: 'B+' },
-      { name: 'Alexander Lopez', avgScore: 87.2, lastExam: 89, trend: 'up', grade: 'A' },
-    ],
+    '10B': [],
+    '11A': [],
+    '11B': [],
+    '12A': [],
+    '12B': [],
   };
 
-  const sectionStudents = allStudents[selectedSection as keyof typeof allStudents] || [];
+  const sectionStudents = allStudents[selectedSection] || [];
 
-  const getColorClasses = (color: string) => {
+  const getColorClasses = (color) => {
     const colors = {
       blue: 'from-blue-500 to-blue-600',
       green: 'from-green-500 to-green-600',
       purple: 'from-purple-500 to-purple-600',
       orange: 'from-orange-500 to-orange-600',
     };
-    return colors[color as keyof typeof colors] || colors.blue;
+    return colors[color] || colors.blue;
   };
 
-  const getGradeColor = (grade: string) => {
+  const getGradeColor = (grade) => {
     if (grade.startsWith('A')) return 'text-green-600 dark:text-green-400';
     if (grade.startsWith('B')) return 'text-blue-600 dark:text-blue-400';
     if (grade.startsWith('C')) return 'text-yellow-600 dark:text-yellow-400';
@@ -120,21 +79,18 @@ const TeacherDashboard: React.FC = () => {
       const newSectionData = {
         name: newSection.name,
         students: parseInt(newSection.studentCount),
-        avgScore: 0, // Will be calculated as students are added
+        avgScore: 0,
       };
       setSections([...sections, newSectionData]);
       setNewSection({ name: '', studentCount: '' });
       setShowAddSectionModal(false);
-      
-      // Add empty student array for the new section
-      allStudents[newSection.name as keyof typeof allStudents] = [];
+      allStudents[newSection.name] = [];
     }
   };
 
   return (
     <div className={`min-h-screen pt-16 ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
         <div className="mb-8">
           <h1 className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
             Welcome back, {user?.name}
@@ -144,12 +100,11 @@ const TeacherDashboard: React.FC = () => {
           </p>
         </div>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300`}
+              className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-6`}
             >
               <div className="flex items-center">
                 <div className={`p-3 rounded-lg bg-gradient-to-r ${getColorClasses(stat.color)}`}>
@@ -169,7 +124,6 @@ const TeacherDashboard: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Sections Overview */}
           <div className={`lg:col-span-2 ${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-6`}>
             <div className="flex items-center justify-between mb-6">
               <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -177,7 +131,7 @@ const TeacherDashboard: React.FC = () => {
               </h2>
               <button 
                 onClick={() => setShowAddSectionModal(true)}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg"
               >
                 <PlusIcon className="h-4 w-4 mr-2" />
                 Add Section
@@ -187,12 +141,12 @@ const TeacherDashboard: React.FC = () => {
               {sections.map((section, index) => (
                 <div
                   key={index}
-                  className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
+                  className={`p-4 rounded-lg border-2 cursor-pointer ${
                     selectedSection === section.name
                       ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                       : isDark
-                        ? 'border-gray-700 bg-gray-900 hover:border-gray-600'
-                        : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                        ? 'border-gray-700 bg-gray-900'
+                        : 'border-gray-200 bg-gray-50'
                   }`}
                   onClick={() => navigate(`/section/${section.name}`)}
                 >
@@ -212,22 +166,14 @@ const TeacherDashboard: React.FC = () => {
                       {section.avgScore}%
                     </span>
                   </div>
-                  <div className="mt-2">
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
-                    }`}>
-                      Click to view details
-                    </span>
-                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Recent Exams */}
           <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-6`}>
             <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'} mb-6`}>
-              Recent Exams
+              Ecaluated Exams
             </h2>
             <div className="space-y-4">
               {recentExams.map((exam, index) => (
@@ -253,94 +199,55 @@ const TeacherDashboard: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <div className="mt-2">
-                    <button className="flex items-center text-blue-600 hover:text-blue-700 text-sm">
-                      <EyeIcon className="h-4 w-4 mr-1" />
-                      View Details
-                    </button>
-                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-
-        {/* Add Section Modal */}
         {showAddSectionModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-2xl p-6 w-full max-w-md mx-4`}>
+            <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl p-6 w-full max-w-md`}>
               <div className="flex items-center justify-between mb-6">
                 <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   Add New Section
                 </h3>
                 <button
                   onClick={() => setShowAddSectionModal(false)}
-                  className={`p-2 rounded-full ${isDark ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-100 text-gray-500'} transition-colors`}
+                  className={`p-2 rounded-full ${isDark ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-100 text-gray-500'}`}
                 >
                   <XMarkIcon className="h-5 w-5" />
                 </button>
               </div>
-              
+
               <div className="space-y-4">
-                <div>
-                  <label className={`block text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'} mb-2`}>
-                    Section Name
-                  </label>
-                  <input
-                    type="text"
-                    value={newSection.name}
-                    onChange={(e) => setNewSection({ ...newSection, name: e.target.value })}
-                    placeholder="e.g., 10C, 11D, 12E"
-                    className={`w-full px-3 py-2 border rounded-lg ${
-                      isDark 
-                        ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
-                        : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                    } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
-                  />
-                </div>
-                
-                <div>
-                  <label className={`block text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'} mb-2`}>
-                    Number of Students
-                  </label>
-                  <input
-                    type="number"
-                    value={newSection.studentCount}
-                    onChange={(e) => setNewSection({ ...newSection, studentCount: e.target.value })}
-                    placeholder="e.g., 25"
-                    min="1"
-                    max="50"
-                    className={`w-full px-3 py-2 border rounded-lg ${
-                      isDark 
-                        ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
-                        : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                    } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
-                  />
-                </div>
+                <input
+                  type="text"
+                  value={newSection.name}
+                  onChange={(e) => setNewSection({ ...newSection, name: e.target.value })}
+                  placeholder="Section Name"
+                  className="w-full px-3 py-2 border rounded"
+                />
+                <input
+                  type="number"
+                  value={newSection.studentCount}
+                  onChange={(e) => setNewSection({ ...newSection, studentCount: e.target.value })}
+                  placeholder="Student Count"
+                  className="w-full px-3 py-2 border rounded"
+                />
               </div>
-              
-              <div className="flex space-x-3 mt-6">
+
+              <div className="flex justify-end space-x-3 mt-6">
                 <button
                   onClick={() => setShowAddSectionModal(false)}
-                  className={`flex-1 px-4 py-2 border rounded-lg font-medium transition-colors ${
-                    isDark
-                      ? 'border-gray-600 text-gray-300 hover:bg-gray-700'
-                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }`}
+                  className="px-4 py-2 border rounded"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleAddSection}
                   disabled={!newSection.name || !newSection.studentCount}
-                  className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
-                    newSection.name && newSection.studentCount
-                      ? 'bg-blue-600 text-white hover:bg-blue-700'
-                      : isDark
-                        ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  }`}
+                  className="px-4 py-2 bg-blue-600 text-white rounded"
                 >
                   Add Section
                 </button>
@@ -348,6 +255,7 @@ const TeacherDashboard: React.FC = () => {
             </div>
           </div>
         )}
+
       </div>
     </div>
   );

@@ -7,17 +7,10 @@ import {
   SparklesIcon
 } from '@heroicons/react/24/outline';
 
-interface Message {
-  id: string;
-  text: string;
-  isUser: boolean;
-  timestamp: Date;
-}
-
-const ChatAssistant: React.FC = () => {
+const ChatAssistant = () => {
   const { isDark } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
+  const [messages, setMessages] = useState([
     {
       id: '1',
       text: "Hi! I'm ExamEval Assistant. How can I help you today? You can ask me about our features, pricing, or how to get started!",
@@ -39,22 +32,22 @@ const ChatAssistant: React.FC = () => {
     'default': "That's a great question! While I'm still learning, I'd recommend checking our documentation or contacting our support team for detailed assistance. Is there anything specific about ExamEval's features or pricing I can help with?"
   };
 
-  const getResponse = (userMessage: string): string => {
+  const getResponse = (userMessage) => {
     const message = userMessage.toLowerCase();
-    
+
     for (const [key, response] of Object.entries(predefinedResponses)) {
       if (key !== 'default' && message.includes(key)) {
         return response;
       }
     }
-    
+
     return predefinedResponses.default;
   };
 
   const handleSendMessage = () => {
     if (!inputText.trim()) return;
 
-    const userMessage: Message = {
+    const userMessage = {
       id: Date.now().toString(),
       text: inputText,
       isUser: true,
@@ -63,9 +56,8 @@ const ChatAssistant: React.FC = () => {
 
     setMessages(prev => [...prev, userMessage]);
 
-    // Simulate AI response delay
     setTimeout(() => {
-      const aiResponse: Message = {
+      const aiResponse = {
         id: (Date.now() + 1).toString(),
         text: getResponse(inputText),
         isUser: false,
@@ -77,7 +69,7 @@ const ChatAssistant: React.FC = () => {
     setInputText('');
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
@@ -92,13 +84,12 @@ const ChatAssistant: React.FC = () => {
     "Is my data secure?"
   ];
 
-  const handleQuickQuestion = (question: string) => {
+  const handleQuickQuestion = (question) => {
     setInputText(question);
   };
 
   return (
     <>
-      {/* Chat Widget */}
       {isOpen && (
         <div className={`fixed bottom-24 right-6 w-80 h-96 ${isDark ? 'bg-gray-800' : 'bg-white'} rounded-2xl shadow-2xl border ${isDark ? 'border-gray-700' : 'border-gray-200'} flex flex-col z-50 animate-slide-up`}>
           {/* Header */}

@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import TeacherDashboard from '../components/TeacherDashboard';
 import StudentDashboard from '../components/StudentDashboard';
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const { user } = useAuth();
 
   if (!user) {

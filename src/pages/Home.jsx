@@ -16,7 +16,7 @@ import {
   BoltIcon
 } from '@heroicons/react/24/outline';
 
-const Home: React.FC = () => {
+const Home = () => {
   const { isDark } = useTheme();
 
   const features = [
@@ -172,17 +172,16 @@ const Home: React.FC = () => {
                     {word}
                   </span>
                 ))}
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
-                  {['Exam', 'Grading'].map((word, index) => (
-                    <span
-                      key={index}
-                      className="inline-block mr-4 group-hover:animate-bounce transition-all duration-300"
-                      style={{ animationDelay: `${(index + 2) * 0.1}s` }}
-                    >
-                      {word}
-                    </span>
-                  ))}
+               {['Exam', 'Grading'].map((word, index) => (
+                <span
+                  key={index}
+                  className="inline-block mr-4 group-hover:animate-bounce transition-all duration-300 bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent"
+                  style={{ animationDelay: `${(index + 2) * 0.1}s` }}
+                >
+                  {word}
                 </span>
+                ))}
+
                 {['with', 'AI'].map((word, index) => (
                   <span
                     key={index}

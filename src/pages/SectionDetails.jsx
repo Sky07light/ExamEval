@@ -18,8 +18,8 @@ import {
   ComputerDesktopIcon
 } from '@heroicons/react/24/outline';
 
-const SectionDetails: React.FC = () => {
-  const { sectionName } = useParams<{ sectionName: string }>();
+const SectionDetails = () => {
+  const { sectionName } = useParams();
   const { isDark } = useTheme();
   const navigate = useNavigate();
   const [showSubjectModal, setShowSubjectModal] = useState(false);
@@ -81,7 +81,7 @@ const SectionDetails: React.FC = () => {
     { name: 'Music', icon: MusicalNoteIcon, color: 'cyan' },
   ];
 
-  const students = allStudents[sectionName as keyof typeof allStudents] || [];
+  const students = allStudents[sectionName] || [];
   
   const sectionStats = {
     totalStudents: students.length,
@@ -90,14 +90,14 @@ const SectionDetails: React.FC = () => {
     improvingStudents: students.filter(student => student.trend === 'up').length,
   };
 
-  const getGradeColor = (grade: string) => {
+  const getGradeColor = (grade) => {
     if (grade.startsWith('A')) return 'text-green-600 dark:text-green-400';
     if (grade.startsWith('B')) return 'text-blue-600 dark:text-blue-400';
     if (grade.startsWith('C')) return 'text-yellow-600 dark:text-yellow-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getColorClasses = (color: string) => {
+  const getColorClasses = (color) => {
     const colors = {
       blue: 'from-blue-500 to-blue-600',
       green: 'from-green-500 to-green-600',
@@ -110,14 +110,14 @@ const SectionDetails: React.FC = () => {
       pink: 'from-pink-500 to-pink-600',
       cyan: 'from-cyan-500 to-cyan-600',
     };
-    return colors[color as keyof typeof colors] || colors.blue;
+    return colors[color] || colors.blue;
   };
 
-  const handleSubjectSelect = (subject: string) => {
+  const handleSubjectSelect = (subject) => {
     setSelectedSubject(subject);
     setShowSubjectModal(false);
     // Navigate to upload page with subject parameter
-    navigate(`/upload?subject=${encodeURIComponent(subject)}&section=${encodeURIComponent(sectionName || '')}`);
+    navigate(`/upload?subject=${encodeURIComponent(subject)}§ion=${encodeURIComponent(sectionName || '')}`);
   };
 
   return (

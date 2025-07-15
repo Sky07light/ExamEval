@@ -14,7 +14,7 @@ import {
   EyeSlashIcon
 } from '@heroicons/react/24/outline';
 
-const Settings: React.FC = () => {
+const Settings = () => {
   const { isDark, toggleTheme } = useTheme();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
@@ -36,10 +36,10 @@ const Settings: React.FC = () => {
     { id: 'preferences', name: 'Preferences', icon: GlobeAltIcon },
   ];
 
-  const handleNotificationChange = (key: string) => {
+  const handleNotificationChange = (key) => {
     setNotifications(prev => ({
       ...prev,
-      [key]: !prev[key as keyof typeof prev]
+      [key]: !prev[key]
     }));
   };
 
@@ -217,7 +217,7 @@ const Settings: React.FC = () => {
               <label className="relative inline-flex items-center cursor-pointer">
                 <input 
                   type="checkbox" 
-                  checked={notifications[key as keyof typeof notifications]}
+                  checked={notifications[key]}
                   onChange={() => handleNotificationChange(key)}
                   className="sr-only peer" 
                 />
@@ -246,7 +246,7 @@ const Settings: React.FC = () => {
               <label className="relative inline-flex items-center cursor-pointer">
                 <input 
                   type="checkbox" 
-                  checked={notifications[key as keyof typeof notifications]}
+                  checked={notifications[key]}
                   onChange={() => handleNotificationChange(key)}
                   className="sr-only peer" 
                 />

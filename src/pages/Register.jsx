@@ -3,32 +3,39 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { 
-  EnvelopeIcon, 
-  LockClosedIcon, 
+  UserIcon, 
+  AcademicCapIcon, 
   EyeIcon, 
   EyeSlashIcon,
-  UserIcon,
-  AcademicCapIcon
+  EnvelopeIcon,
+  LockClosedIcon
 } from '@heroicons/react/24/outline';
 
-const Login: React.FC = () => {
-  const [userType, setUserType] = useState<'student' | 'teacher'>('student');
+const Register = () => {
+  const [userType, setUserType] = useState('student');
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const { login } = useAuth();
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { register } = useAuth();
   const { isDark } = useTheme();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    login(formData.email, formData.password, userType);
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+    register(formData.name, formData.email, formData.password, userType);
     navigate('/dashboard');
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -37,12 +44,12 @@ const Login: React.FC = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className={`mt-6 text-center text-3xl font-extrabold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-            Sign in to your account
+            Create your account
           </h2>
           <p className={`mt-2 text-center text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            Don't have an account?{' '}
-            <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
-              Sign up
+            Already have an account?{' '}
+            <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
+              Sign in
             </Link>
           </p>
         </div>
@@ -64,6 +71,9 @@ const Login: React.FC = () => {
             <div className={`font-medium ${userType === 'student' ? 'text-blue-600' : isDark ? 'text-white' : 'text-gray-900'}`}>
               Student
             </div>
+            <div className={`text-sm ${userType === 'student' ? 'text-blue-500' : isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+              Practice and improve
+            </div>
           </button>
           
           <button
@@ -81,11 +91,37 @@ const Login: React.FC = () => {
             <div className={`font-medium ${userType === 'teacher' ? 'text-blue-600' : isDark ? 'text-white' : 'text-gray-900'}`}>
               Teacher
             </div>
+            <div className={`text-sm ${userType === 'teacher' ? 'text-blue-500' : isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+              Evaluate and manage
+            </div>
           </button>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
+            <div>
+              <label htmlFor="name" className={`block text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                Full Name
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className={`appearance-none relative block w-full px-3 py-2 pl-10 border ${
+                    isDark 
+                      ? 'border-gray-700 bg-gray-800 text-white placeholder-gray-400'
+                      : 'border-gray-300 bg-white text-gray-900 placeholder-gray-500'
+                  } rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
+                  placeholder="Enter your full name"
+                />
+                <UserIcon className={`h-5 w-5 absolute left-3 top-2.5 ${isDark ? 'text-gray-400' : 'text-gray-400'}`} />
+              </div>
+            </div>
+
             <div>
               <label htmlFor="email" className={`block text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                 Email Address
@@ -138,13 +174,35 @@ const Login: React.FC = () => {
                 </button>
               </div>
             </div>
-          </div>
 
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
-              <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                Forgot your password?
-              </a>
+            <div>
+              <label htmlFor="confirmPassword" className={`block text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                Confirm Password
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  required
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                  className={`appearance-none relative block w-full px-3 py-2 pl-10 pr-10 border ${
+                    isDark 
+                      ? 'border-gray-700 bg-gray-800 text-white placeholder-gray-400'
+                      : 'border-gray-300 bg-white text-gray-900 placeholder-gray-500'
+                  } rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
+                  placeholder="Confirm your password"
+                />
+                <LockClosedIcon className={`h-5 w-5 absolute left-3 top-2.5 ${isDark ? 'text-gray-400' : 'text-gray-400'}`} />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className={`absolute right-3 top-2.5 ${isDark ? 'text-gray-400 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'}`}
+                >
+                  {showConfirmPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -153,7 +211,7 @@ const Login: React.FC = () => {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
             >
-              Sign in as {userType === 'student' ? 'Student' : 'Teacher'}
+              Create Account as {userType === 'student' ? 'Student' : 'Teacher'}
             </button>
           </div>
         </form>
@@ -162,4 +220,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -9,13 +9,13 @@ import {
   RocketLaunchIcon
 } from '@heroicons/react/24/outline';
 
-const Pricing: React.FC = () => {
+const Pricing = () => {
   const { isDark } = useTheme();
 
   const plans = [
     {
       name: 'Free',
-      price: '$0',
+      price: '₹0',
       period: 'forever',
       description: 'Perfect for trying out EvalAI',
       icon: StarIcon,
@@ -34,7 +34,7 @@ const Pricing: React.FC = () => {
     },
     {
       name: 'Professional',
-      price: '$29',
+      price: '₹199',
       period: 'per month',
       description: 'Ideal for individual teachers and small teams',
       icon: BoltIcon,
@@ -53,7 +53,7 @@ const Pricing: React.FC = () => {
     },
     {
       name: 'Enterprise',
-      price: '$99',
+      price: '₹999',
       period: 'per month',
       description: 'For institutions and large organizations',
       icon: RocketLaunchIcon,
@@ -114,7 +114,7 @@ const Pricing: React.FC = () => {
     }
   ];
 
-  const getColorClasses = (color: string, variant: 'light' | 'medium' | 'dark' = 'medium') => {
+  const getColorClasses = (color, variant = 'medium') => {
     const colors = {
       gray: {
         light: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
@@ -132,10 +132,10 @@ const Pricing: React.FC = () => {
         dark: 'bg-purple-800 text-white'
       }
     };
-    return colors[color as keyof typeof colors]?.[variant] || colors.blue[variant];
+    return colors[color]?.[variant] || colors.blue[variant];
   };
 
-  const renderFeatureValue = (value: any) => {
+  const renderFeatureValue = (value) => {
     if (typeof value === 'boolean') {
       return value ? (
         <CheckIcon className="h-5 w-5 text-green-500" />

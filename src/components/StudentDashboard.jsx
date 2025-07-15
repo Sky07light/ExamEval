@@ -2,18 +2,15 @@ import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useAuth } from '../contexts/AuthContext';
 import {
-  BookOpenIcon,
   ChartBarIcon,
   ClockIcon,
   TrophyIcon,
-  AcademicCapIcon,
   CheckCircleIcon,
-  ExclamationTriangleIcon,
   ArrowTrendingUpIcon,
   PlayIcon
 } from '@heroicons/react/24/outline';
 
-const StudentDashboard: React.FC = () => {
+const StudentDashboard = () => {
   const { isDark } = useTheme();
   const { user } = useAuth();
 
@@ -53,7 +50,7 @@ const StudentDashboard: React.FC = () => {
       avgScore: 79.8,
       lastScore: 85,
       trend: 'up',
-      improvementPoints: ['Review Newton\'s laws', 'Practice numerical problems']
+      improvementPoints: ["Review Newton's laws", 'Practice numerical problems']
     },
     {
       name: 'Chemistry',
@@ -80,31 +77,31 @@ const StudentDashboard: React.FC = () => {
     { subject: 'Physics', topic: 'Motion in a Plane', difficulty: 'Medium', estimatedTime: '35 min' },
   ];
 
-  const getColorClasses = (color: string) => {
+  const getColorClasses = (color) => {
     const colors = {
       blue: 'from-blue-500 to-blue-600',
       green: 'from-green-500 to-green-600',
       purple: 'from-purple-500 to-purple-600',
       orange: 'from-orange-500 to-orange-600',
     };
-    return colors[color as keyof typeof colors] || colors.blue;
+    return colors[color] || colors.blue;
   };
 
-  const getScoreColor = (score: number) => {
+  const getScoreColor = (score) => {
     if (score >= 90) return 'text-green-600';
     if (score >= 80) return 'text-blue-600';
     if (score >= 70) return 'text-yellow-600';
     return 'text-red-600';
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     const colors = {
       excellent: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400',
       good: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400',
       average: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400',
       poor: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400',
     };
-    return colors[status as keyof typeof colors] || colors.average;
+    return colors[status] || colors.average;
   };
 
   return (
@@ -185,7 +182,7 @@ const StudentDashboard: React.FC = () => {
                   
                   {/* Progress Bar */}
                   <div className="mb-4">
-                    <div className={`w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2`}>
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                       <div 
                         className={`h-2 rounded-full bg-gradient-to-r ${getColorClasses('blue')}`}
                         style={{ width: `${(subject.completed / subject.total) * 100}%` }}
@@ -224,7 +221,7 @@ const StudentDashboard: React.FC = () => {
             {/* Recent Tests */}
             <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-lg p-6`}>
               <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-900'} mb-6`}>
-                Recent Tests
+                Evaluated Tests
               </h2>
               <div className="space-y-4">
                 {recentTests.map((test, index) => (

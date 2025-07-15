@@ -10,40 +10,40 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline';
 
-const Upload: React.FC = () => {
+const Upload = () => {
   const { isDark } = useTheme();
   const { user } = useAuth();
-  const [uploadType, setUploadType] = useState<'question' | 'answer'>('question');
-  const [files, setFiles] = useState<File[]>([]);
+  const [uploadType, setUploadType] = useState('question');
+  const [files, setFiles] = useState([]);
   const [dragOver, setDragOver] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = (e) => {
     e.preventDefault();
     setDragOver(true);
   };
 
-  const handleDragLeave = (e: React.DragEvent) => {
+  const handleDragLeave = (e) => {
     e.preventDefault();
     setDragOver(false);
   };
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = (e) => {
     e.preventDefault();
     setDragOver(false);
     const droppedFiles = Array.from(e.dataTransfer.files);
     setFiles(prev => [...prev, ...droppedFiles]);
   };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (e) => {
     if (e.target.files) {
       const selectedFiles = Array.from(e.target.files);
       setFiles(prev => [...prev, ...selectedFiles]);
     }
   };
 
-  const removeFile = (index: number) => {
+  const removeFile = (index) => {
     setFiles(prev => prev.filter((_, i) => i !== index));
   };
 
@@ -71,14 +71,14 @@ const Upload: React.FC = () => {
     }, 200);
   };
 
-  const getFileIcon = (file: File) => {
+  const getFileIcon = (file) => {
     if (file.type.startsWith('image/')) {
       return <PhotoIcon className="h-8 w-8 text-blue-500" />;
     }
     return <DocumentTextIcon className="h-8 w-8 text-blue-500" />;
   };
 
-  const formatFileSize = (bytes: number) => {
+  const formatFileSize = (bytes) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];

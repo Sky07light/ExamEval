@@ -1,21 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: 'student' | 'teacher';
-  avatar?: string;
-}
-
-interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string, role: 'student' | 'teacher') => void;
-  logout: () => void;
-  register: (name: string, email: string, password: string, role: 'student' | 'teacher') => void;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext();
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -25,12 +10,11 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
-  const login = (email: string, password: string, role: 'student' | 'teacher') => {
-    // Simulate login
-    const newUser: User = {
+  const login = (email, password, role) => {
+    const newUser = {
       id: '1',
       name: role === 'teacher' ? 'Dr. Sarah Johnson' : 'Alex Thompson',
       email,
@@ -40,8 +24,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(newUser);
   };
 
-  const register = (name: string, email: string, password: string, role: 'student' | 'teacher') => {
-    const newUser: User = {
+  const register = (name, email, password, role) => {
+    const newUser = {
       id: Date.now().toString(),
       name,
       email,

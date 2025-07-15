@@ -6,20 +6,19 @@ import {
   Bars3Icon, 
   XMarkIcon, 
   SparklesIcon,
-  UserCircleIcon,
   ArrowRightOnRectangleIcon,
   SunIcon,
   MoonIcon
 } from '@heroicons/react/24/outline';
 
-const Navigation: React.FC = () => {
+const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path) => location.pathname === path;
 
   const navLinks = user ? [
     { name: 'Dashboard', href: '/dashboard' },

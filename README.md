@@ -1,4 +1,4 @@
-# ExamEval Frontend
+# ExamEval
 
 ExamEval is an **AI-powered exam evaluation system** that automates subjective answer evaluation, provides detailed feedback, and generates analytics for educators.
 

@@ -14,7 +14,7 @@ import {
 
 const TeacherDashboard = () => {
   const { isDark } = useTheme();
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
 
   const [selectedSection, setSelectedSection] = useState('10A');
@@ -93,7 +93,7 @@ const TeacherDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-            Welcome back, {user?.name}
+            Welcome back, {currentUser?.name}
           </h1>
           <p className={`mt-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
             Here's an overview of your teaching activities and student performance.

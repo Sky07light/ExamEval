@@ -12,7 +12,7 @@ import {
 
 const StudentDashboard = () => {
   const { isDark } = useTheme();
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
 
   const stats = [
     { title: 'Tests Completed', value: '24', icon: CheckCircleIcon, color: 'green' },
@@ -110,7 +110,7 @@ const StudentDashboard = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-            Welcome back, {user?.name}
+            Welcome back, {currentUser?.name}
           </h1>
           <p className={`mt-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
             Track your progress and continue your learning journey.

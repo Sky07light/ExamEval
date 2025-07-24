@@ -4,13 +4,14 @@ import TeacherDashboard from '../components/TeacherDashboard';
 import StudentDashboard from '../components/StudentDashboard';
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
 
-  if (!user) {
+  if (!currentUser) {
     return <div>Please log in to access your dashboard.</div>;
   }
 
-  return user.role === 'teacher' ? <TeacherDashboard /> : <StudentDashboard />;
-};
+  return currentUser.role === 'teacher' ? <TeacherDashboard /> : <StudentDashboard />;
+
+  };
 
 export default Dashboard;

@@ -5,8 +5,11 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+    "start": "node start.js",
+    "dev": "nodemon start.js",
+    "server": "node src/server.js",
+    "seed": "node src/utils/seeder.js",
+    "seed:delete": "node src/utils/seeder.js -d",
     "test": "jest"
   },
   "keywords": [

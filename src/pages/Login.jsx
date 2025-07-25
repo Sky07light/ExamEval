@@ -22,10 +22,16 @@ const Login = () => {
   const { isDark } = useTheme();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(formData.email, formData.password, userType);
-    navigate('/dashboard');
+    try {
+      const user = await login(formData.email, formData.password, userType);
+      navigate(user.role === 'teacher' ? '/teacher-dashboard' : '/student-dashboard');
+
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Login failed. Check credentials.');
+    }
   };
 
   const handleInputChange = (e) => {

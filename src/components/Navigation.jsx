@@ -13,15 +13,18 @@ import {
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
   const isActive = (path) => location.pathname === path;
 
-  const navLinks = user ? [
-    { name: 'Dashboard', href: '/dashboard' },
+  const navLinks = currentUser ? [
+    {
+      name: 'Dashboard',
+      href: currentUser.role === 'teacher' ? '/teacher-dashboard' : '/student-dashboard',
+    },
     { name: 'Upload', href: '/upload' },
     { name: 'Settings', href: '/settings' },
   ] : [
@@ -41,6 +44,7 @@ const Navigation = () => {
     } border-b`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
+          {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
               <SparklesIcon className="h-8 w-8 text-blue-600" />
@@ -67,7 +71,7 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
-            
+
             <button
               onClick={toggleTheme}
               className={`p-2 rounded-md transition-colors ${
@@ -79,16 +83,18 @@ const Navigation = () => {
               {isDark ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
             </button>
 
-            {user ? (
+            {currentUser ? (
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
-                  <img
-                    src={user.avatar}
-                    alt={user.name}
-                    className="h-8 w-8 rounded-full object-cover"
-                  />
+                  {currentUser.avatar && (
+                    <img
+                      src={currentUser.avatar}
+                      alt={currentUser.name}
+                      className="h-8 w-8 rounded-full object-cover"
+                    />
+                  )}
                   <span className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                    {user.name}
+                    {currentUser.name}
                   </span>
                 </div>
                 <button
@@ -120,7 +126,7 @@ const Navigation = () => {
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Hamburger */}
           <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleTheme}
@@ -144,7 +150,7 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       {isOpen && (
         <div className={`md:hidden ${isDark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'} border-t`}>
           <div className="px-2 pt-2 pb-3 space-y-1">
@@ -164,7 +170,7 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
-            {!user && (
+            {!currentUser && (
               <>
                 <Link
                   to="/login"

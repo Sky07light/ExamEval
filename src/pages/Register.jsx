@@ -25,14 +25,24 @@ const Register = () => {
   const { isDark } = useTheme();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-    register(formData.name, formData.email, formData.password, userType);
-    navigate('/dashboard');
+
+    if (formData.password.length < 6) {
+      alert('Password must be at least 6 characters');
+      return;
+    }
+
+    const success = await register(formData.name, formData.email, formData.password, userType);
+    if (success) {
+      navigate(userType === 'teacher' ? '/teacher-dashboard' : '/student-dashboard');
+    }
+    // If not successful, user remains on the page with alert already shown
   };
 
   const handleInputChange = (e) => {
@@ -118,7 +128,7 @@ const Register = () => {
                   } rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
                   placeholder="Enter your full name"
                 />
-                <UserIcon className={`h-5 w-5 absolute left-3 top-2.5 ${isDark ? 'text-gray-400' : 'text-gray-400'}`} />
+                <UserIcon className="h-5 w-5 absolute left-3 top-2.5 text-gray-400" />
               </div>
             </div>
 
@@ -141,7 +151,7 @@ const Register = () => {
                   } rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
                   placeholder="Enter your email"
                 />
-                <EnvelopeIcon className={`h-5 w-5 absolute left-3 top-2.5 ${isDark ? 'text-gray-400' : 'text-gray-400'}`} />
+                <EnvelopeIcon className="h-5 w-5 absolute left-3 top-2.5 text-gray-400" />
               </div>
             </div>
 
@@ -164,11 +174,11 @@ const Register = () => {
                   } rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
                   placeholder="Enter your password"
                 />
-                <LockClosedIcon className={`h-5 w-5 absolute left-3 top-2.5 ${isDark ? 'text-gray-400' : 'text-gray-400'}`} />
+                <LockClosedIcon className="h-5 w-5 absolute left-3 top-2.5 text-gray-400" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className={`absolute right-3 top-2.5 ${isDark ? 'text-gray-400 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'}`}
+                  className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   {showPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
                 </button>
@@ -194,11 +204,11 @@ const Register = () => {
                   } rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm`}
                   placeholder="Confirm your password"
                 />
-                <LockClosedIcon className={`h-5 w-5 absolute left-3 top-2.5 ${isDark ? 'text-gray-400' : 'text-gray-400'}`} />
+                <LockClosedIcon className="h-5 w-5 absolute left-3 top-2.5 text-gray-400" />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className={`absolute right-3 top-2.5 ${isDark ? 'text-gray-400 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'}`}
+                  className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   {showConfirmPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
                 </button>

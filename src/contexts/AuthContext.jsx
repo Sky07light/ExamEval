@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+  // Register user
   const register = async (name, email, password, role) => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, {
@@ -29,29 +30,34 @@ export const AuthProvider = ({ children }) => {
       setCurrentUser(data);
       localStorage.setItem('examEvalUser', JSON.stringify(data));
       localStorage.setItem('examEvalToken', token);
+      return true; // registration successful
     } catch (error) {
       console.error('Registration failed:', error.response?.data || error.message);
       alert(error.response?.data?.error || 'Registration failed');
+      return false; // registration failed
     }
   };
 
+  // Login user
   const login = async (email, password, role) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
+      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
         email,
         password,
         role,
       });
-      const { data, token } = response.data;
-      setCurrentUser(data);
-      localStorage.setItem('examEvalUser', JSON.stringify(data));
-      localStorage.setItem('examEvalToken', token);
+      setCurrentUser(data.user);
+      localStorage.setItem('examEvalUser', JSON.stringify(data.user));
+      localStorage.setItem('examEvalToken', data.token);
+      return data.user; // return user for role-based redirection
     } catch (error) {
       console.error('Login failed:', error.response?.data || error.message);
       alert(error.response?.data?.error || 'Login failed');
+      throw error;
     }
   };
 
+  // Logout user
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem('examEvalUser');

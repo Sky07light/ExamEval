@@ -40,7 +40,7 @@ const Register = () => {
 
     const success = await register(formData.name, formData.email, formData.password, userType);
     if (success) {
-      navigate(userType === 'teacher' ? '/teacher-dashboard' : '/student-dashboard');
+      navigate('/dashboard');
     }
     // If not successful, user remains on the page with alert already shown
   };

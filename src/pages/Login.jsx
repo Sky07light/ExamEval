@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const user = await login(formData.email, formData.password, userType);
-      navigate(user.role === 'teacher' ? '/teacher-dashboard' : '/student-dashboard');
+      navigate('/dashboard');
 
     } catch (error) {
       console.error('Login error:', error);
